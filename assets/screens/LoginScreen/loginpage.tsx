@@ -33,9 +33,22 @@ import {
   getProfile,
 } from '@react-native-seoul/kakao-login';
 
+// 내비게이션 import
+import 'react-native-gesture-handler'
+import { enableScreens } from 'react-native-screens'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import {NavigationContainer} from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+import { Navigation } from '../types'
+type Props = {
+  navigation: Navigation;
+}
+
 // App 시작
-function App() {
-  
+
+const LoginScreen = ({ navigation }: Props) => {
+
   // kakao 로그인 적용 코드
   const [result,setResult] = useState<string>('');
 
@@ -44,7 +57,8 @@ function App() {
       const token: KakaoOAuthToken = await login();
       console.log(token);
       
-      setResult(JSON.stringify(token));
+      // setResult(JSON.stringify(token));
+      navigation.navigate('main')
     } catch(err) {
       console.log(err);
       
@@ -56,7 +70,7 @@ function App() {
       const message = await logout();
       console.log(message);
       
-      setResult(message);
+      // setResult(message);
     } catch(err) {
       console.log(err);
       
@@ -69,7 +83,7 @@ function App() {
       const profile: KakaoProfile|KakaoProfileNoneAgreement = await getProfile();
       console.log(profile);
     
-      setResult(JSON.stringify(profile));
+      // setResult(JSON.stringify(profile));
     } catch(err) {
       console.log(err);
       
@@ -82,7 +96,7 @@ function App() {
       const message = await unlink();
       console.log(message);
     
-      setResult(message);
+      // setResult(message);
     } catch(err) {
       console.log(err);
       
@@ -91,40 +105,37 @@ function App() {
 
   // 화면에 나타나는 코드
   return (
+
       <View style={styles.container}>
       <Image 
         style={styles.image1}
-        source={require('./assets/image/logo_.png')} />
-      <View style={{ marginTop: 20 }} />
-      <Text>result : {result}</Text>
-      <View style={{ marginTop: 10 }} />
-      <TouchableOpacity onPress={()=>signInWithKakao()}>
+        source={require('../../image/logo.png')} />
+      <View style={{ marginTop: 5 }} />
+      <TouchableOpacity onPress={async ()=> await signInWithKakao()}>
         <Image style={styles.image2}
-        source={require('./assets/image/kakao_login_medium_wide.png')}/>
+        source={require('../../image/kakao_login_medium_wide.png')}/>
       </TouchableOpacity>
-      <View style={{ marginTop: 10 }} />
-      <Icon name="home" size={50} />
       
       {/* <Button
         testID="btn-login"
         onPress={() => signInWithKakao()}
         title={'Kakao Login'}
          />
-      <View style={{ marginTop: 20 }} /> */}
-      {/* <Button
+      <View style={{ marginTop: 20 }} />
+      <Button
         testID="btn-login"
         onPress={() => getKakaoProfile()}
         title={'profile'} />
-      <View style={{ marginTop: 20 }} />
+      <View style={{ marginTop: 20 }} /> */}
       <Button
         testID="btn-login"
         onPress={() => unlinkKakao()}
         title={'링크 해제'} />
-      <View style={{ marginTop: 20 }} />
+      <View style={{ marginTop: 10 }} />
       <Button
         onPress={() => signOutWithKakao()}
         title={'카카오 로그아웃'} />
-      <View style={{ marginTop: 20 }} /> */}
+      <View style={{ marginTop: 10 }} />
     </View>
   )
 }
@@ -138,12 +149,10 @@ const styles =StyleSheet.create({
     alignItems:'center'
   },
   image1:{
-    backgroundColor:'red',
     width:300,
     height:300,
   },
   image2:{
-    backgroundColor:'blue',
     width:250,
     height:250,
     resizeMode:'contain'
@@ -151,4 +160,4 @@ const styles =StyleSheet.create({
 });
 
 
-export default App
+export default LoginScreen

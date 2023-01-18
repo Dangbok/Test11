@@ -1,14 +1,20 @@
 import React, {Fragment} from 'react'
-import {Platform, StyleSheet, SafeAreaView, View, Alert} from 'react-native'
+import {Platform, StyleSheet, View, Alert, TouchableOpacity} from 'react-native'
 import Colors from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import TopBar from './TopBar'
-import Content from './Content'
-import BottomBar from './BottomBar'
+import TopBar from '../TopBar'
+import Content from '../Content'
+import BottomBar from '../BottomBar'
+import { SafeAreaView } from 'react-native-safe-area-context'
 // moment 패키지 사용 이유: 과거와 현재의 시간 차이를 알기 쉬운 형태로 알려줌
 import moment from 'moment'
 
-export default function main(){
+import { Navigation } from '../types'
+type Props = {
+    navigation: Navigation;
+}
+
+const HomeScreen = ({ navigation }: Props) => {
     const iconPressed= () => Alert.alert('Icon pressed')
     return (
         <Fragment>
@@ -36,3 +42,5 @@ const styles = StyleSheet.create({
         borderRadius:35
     }
 })
+
+export default HomeScreen;
