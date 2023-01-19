@@ -15,9 +15,9 @@ type Props = {
     navigation: Navigation;
 }
 
-const HomeScreen = ({ navigation }: Props) => {
+export default function MyPage(){
     const iconPressed= () => Alert.alert('Icon pressed')
-    return (
+    return(
         <Fragment>
         <SafeAreaView style={styles.flex}>
             <TopBar />
@@ -29,9 +29,8 @@ const HomeScreen = ({ navigation }: Props) => {
         </Fragment>
     )
 }
-
-const styles = StyleSheet.create({
-    flex: {flex:1, backgroundColor: 'white'},
+const styles=StyleSheet.create({
+    flex: {flex:1, backgroundColor: 'darkgrey'},
     absoluteView: {
         backgroundColor:'purple',
         position:'absolute',
@@ -41,5 +40,3 @@ const styles = StyleSheet.create({
         borderRadius:35
     }
 })
-
-export default HomeScreen;
